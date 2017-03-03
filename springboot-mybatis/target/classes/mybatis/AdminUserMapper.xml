@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xzhang.mapper.AdminUserMapper">
+
+    <!-- 基本返回值：实体类对象 -->
+    <resultMap id="BaseResultMap" type="com.xzhang.model.AdminUser">
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="user_name" property="username" jdbcType="VARCHAR" />
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+        <result column="pass_word" property="password" jdbcType="VARCHAR" />
+        <result column="create_time" property="createtime" jdbcType="TIMESTAMP" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!-- 基础查询语句   -->
+    <sql id="Base_Query">
+        <![CDATA[
+        SELECT tau.id, tau.user_name, tau.mobile, tau.pass_word, tau.create_time,
+        tau.STATUS
+        FROM t_admin_user tau
+        ]]>
+    </sql>
+
+    <!-- 根据id找到adminUser对象 -->
+    <select id="findAdminUser" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <include refid="Base_Query" />
+        <![CDATA[where tau.id = #{id,jdbcType=VARCHAR}]]>
+    </select>
+
+</mapper>
